@@ -129,3 +129,4 @@ dmypy.json
 .pyre/
 config/.secrerts.yaml
 Pipfile.lock
+config/.secrets.yaml

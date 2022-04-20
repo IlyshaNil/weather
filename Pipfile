@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 django = "*"
 dynaconf = {extras = ["yaml"], version = "*"}
+dj-database-url = "*"
+psycopg2 = "*"
 
 [dev-packages]
 black = "*"
