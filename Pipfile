@@ -8,6 +8,7 @@ django = "*"
 dynaconf = {extras = ["yaml"], version = "*"}
 dj-database-url = "*"
 psycopg2 = "*"
+requests = "*"
 
 [dev-packages]
 black = "*"

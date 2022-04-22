@@ -1,0 +1,43 @@
+{% load static %}
+<form action="/forecast/" method="post">
+    {% csrf_token %}
+    {{ form.region }}<br>
+    {{ form.start_date }}{{ form.end_date }}<br>
+    <input type="submit">
+</form>
+
+{% for data in weather %}
+{{ data.temp.day }}
+{% endfor %}
+
+{% if weather %}
+<style type="text/css">
+    .tg  {border-collapse:collapse;border-color:#93a1a1;border-spacing:0;}
+    .tg td{background-color:#fdf6e3;border-color:#93a1a1;border-style:solid;border-width:1px;color:#002b36;
+      font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
+    .tg th{background-color:#657b83;border-color:#93a1a1;border-style:solid;border-width:1px;color:#fdf6e3;
+      font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+    .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+    .tg .tg-0lax{text-align:left;vertical-align:top}
+    </style>
+    <table class="tg">
+    <thead>
+      <tr>
+        <th class="tg-0pky">{{ region }}</th>
+        <th class="tg-0pky">avr_day_temp</th>
+        <th class="tg-0pky">avr_ngt_temp</th>
+        <th class="tg-0lax">humidity</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for data in weather %} 
+      <tr>
+        <td class="tg-0lax">{{ data.dt }}</td>
+        <td class="tg-0lax">{{ data.temp.day }}</td>
+        <td class="tg-0lax">{{ data.temp.night }}</td>
+        <td class="tg-0lax">{{ data.humidity }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+{% endif %}    

@@ -1,0 +1,6 @@
+<form action="/archive/" method="post">
+    {% csrf_token %}
+    {{ form.region }}<br>
+    {{ form.start_date }}<br>
+    <input type="submit">
+</form>
