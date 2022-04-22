@@ -1,10 +1,11 @@
 from django.shortcuts import render
-from .forms import RegionForm
+from .forms import ForecastForm, ArchiveForm
 from .models import WeatherArchive
 import requests
 from dynaconf import settings as _settings
 import time
 from datetime import datetime
+import datetime as dt
 
 
 def main(request):
@@ -23,7 +24,7 @@ def forecast(request):
 
 
     if request.method == 'POST':
-        form = RegionForm(request.POST)
+        form = ForecastForm(request.POST)
         
         lat_lon = get_region_coord(request)
         
@@ -44,24 +45,49 @@ def forecast(request):
                                                 'region': request.POST['region']})
 
     if request.method == 'GET':
-        return render(request, 'forecast.html', {'form': RegionForm()})
+        return render(request, 'forecast.html', {'form': ForecastForm()})
 
   
 def archive(request):
+
+    def average(qery):
+        avr_day_temp = 0
+        avr_ngt_temp = 0
+        avr_humidity = 0
+        for day in qery:
+            avr_day_temp += day.day_temp
+            avr_ngt_temp += day.night_temp
+            avr_humidity += day.humidity
+        avr_day_temp /= len(qery)
+        avr_ngt_temp /= len(qery)
+        avr_humidity /= len(qery)
+        return round(avr_day_temp,2), round(avr_ngt_temp,2), round(avr_humidity,2) 
+
     if request.method == 'POST':
-        date = datetime.datetime.strptime(request.POST['start_date'], '%Y-%m-%d')
+        form = ArchiveForm(request.POST)
+
+        date = datetime.strptime(request.POST['start_date'], '%Y-%m-%d')
         region = request.POST['region']
 
-        year = WeatherArchive.objects.filter(date_from__year__gte=date.year, region__icontains=region)
+        year = WeatherArchive.objects.filter(date__year__gte=date.year, region__icontains=region)
+        data_year = average(year)
 
-        month = WeatherArchive.objects.filter(date_from__month__gte=date.month, region__icontains=region)
+        month = WeatherArchive.objects.filter(date__month__gte=date.month, region__icontains=region)
+        data_month = average(month)
+    
+        start_week = date - dt.timedelta(date.weekday())
+        end_week = start_week + dt.timedelta(5)
+        weeek = WeatherArchive.objects.filter(date__range=[start_week, end_week], region__icontains=region)
+        data_week = average(weeek)
 
-        start_week = date - datetime.timedelta(date.weekday())
-        end_week = start_week + datetime.timedelta(7)
-        weeek = WeatherArchive.objects.filter(created_at__range=[start_week, end_week], region__icontains=region)
+        return render(request, 'archive.html', {'form': ArchiveForm(), 
+                                                    'year': data_year,
+                                                    'month': data_month,
+                                                    'week': data_week,
+                                                    'region': region})
+
 
     if request.method == 'GET':
-        return render(request, 'forecast.html', {'form': RegionForm()})
-
+        return render(request, 'archive.html', {'form': ArchiveForm()})
 
 
