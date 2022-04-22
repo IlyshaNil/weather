@@ -7,19 +7,26 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='WeatherArchive',
+            name="WeatherArchive",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('region', models.TextField(blank=True, null=True)),
-                ('date', models.DateField()),
-                ('day_temp', models.DecimalField(decimal_places=2, max_digits=4)),
-                ('night_temp', models.DecimalField(decimal_places=2, max_digits=4)),
-                ('humidity', models.IntegerField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("region", models.TextField(blank=True, null=True)),
+                ("date", models.DateField()),
+                ("day_temp", models.DecimalField(decimal_places=2, max_digits=4)),
+                ("night_temp", models.DecimalField(decimal_places=2, max_digits=4)),
+                ("humidity", models.IntegerField()),
             ],
         ),
     ]

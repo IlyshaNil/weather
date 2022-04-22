@@ -9,4 +9,4 @@ class WeatherArchive(models.Model):
     humidity = models.IntegerField()
 
     def __str__(self):
-        return f'{self.region} {self.date}'
+        return f"{self.region} {self.date}"

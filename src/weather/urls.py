@@ -4,5 +4,5 @@ from . import views
 urlpatterns = [
     path("", views.main, name="forecast"),
     path("forecast/", views.forecast, name="forecast"),
-    path("archive/", views.archive, name="archive")
+    path("archive/", views.archive, name="archive"),
 ]
