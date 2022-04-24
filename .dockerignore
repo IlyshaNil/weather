@@ -1,0 +1,9 @@
+**/.cache
+.cache/
+.git/
+.gitignore
+.idea/
+docker-compose.yml
+README.md
+.secrets.yaml
+.secrets.yaml

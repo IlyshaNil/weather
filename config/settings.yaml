@@ -6,3 +6,6 @@ default:
   DATABASE_URL: ""
   API_KEY: ""
 
+docker:
+  DEBUG: false
+ 

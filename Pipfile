@@ -9,6 +9,9 @@ dynaconf = {extras = ["yaml"], version = "*"}
 dj-database-url = "*"
 psycopg2 = "*"
 requests = "*"
+pytest = "*"
+pytest-django = "*"
+pytest-cov = "*"
 
 [dev-packages]
 black = "*"
