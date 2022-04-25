@@ -9,4 +9,7 @@ WORKDIR /weather
 COPY Pipfile Pipfile.lock /weather/
 RUN pip install pipenv && pipenv install --system
 
-COPY . /project/
+COPY . /weather/
+
+RUN chmod +x ./psql-migrations.sh
+ENTRYPOINT [ "./psql-migrations.sh" ]

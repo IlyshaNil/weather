@@ -8,4 +8,7 @@ default:
 
 docker:
   DEBUG: false
+  DJANGO_SUPERUSER_PASSWORD: 12345678
+  DJANGO_SUPERUSER_EMAIL: hacharoky86@gmail.com
+  DJANGO_SUPERUSER_USERNAME: admin
  

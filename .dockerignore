@@ -4,6 +4,5 @@
 .gitignore
 .idea/
 docker-compose.yml
-README.md
-.secrets.yaml
-.secrets.yaml
+config/.secrets.yaml
+
